@@ -3,6 +3,8 @@ package com.xworkz.googlesheetconnection.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +29,7 @@ public class SheetController {
 	SheetService sheetService;
 
 	@PostMapping()
-	public String onSave(@RequestHeader String sheetId,@RequestBody TraineeDTO dto) throws IOException {
+	public String onSave(@RequestHeader String sheetId,@Valid @RequestBody TraineeDTO dto) throws IOException {
 		return this.sheetService.writeData(sheetId, dto);
 	}
 	
@@ -74,4 +76,10 @@ public class SheetController {
 	public String updateDisableByEmail(@RequestHeader String sheetId, @PathVariable String email) throws IOException {
 		return this.sheetService.updateDisableByEmail(sheetId, email);
 	}
+	@GetMapping("/location")
+	public List<String> getAddress(@RequestHeader String sheetId) throws IOException{
+		System.out.println("this is get Address method");
+		return this.sheetService.getLocation(sheetId);
+	}
+
 }

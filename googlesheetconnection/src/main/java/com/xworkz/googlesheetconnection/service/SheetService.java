@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -18,8 +21,6 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.AppendValuesResponse;
-import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.xworkz.googlesheetconnection.dto.TraineeDTO;
 import com.xworkz.googlesheetconnection.util.GoogleSheetUtil;
@@ -27,7 +28,8 @@ import com.xworkz.googlesheetconnection.util.GoogleSheetUtil;
 @Service
 @EnableCaching
 public class SheetService {
-
+	@Autowired
+	JavaMailSender mailSender;
 	private static final String APPLICATION_NAME = "Google sheet new ";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
@@ -47,6 +49,8 @@ public class SheetService {
 	public String writeData(String SheetId, TraineeDTO dto) {
 		List<List<Object>> objectlist = new ArrayList<>();
 		List<Object> list = new ArrayList<>();
+		//boolean sendMessage=this.sendMail(dto.getEmail(), "X-workz","Thanks for registering");
+		//System.out.println(sendMessage);
 		list.add(dto.getStudentName());
 		list.add(dto.getEmail());
 		list.add(dto.getContactNumber());
@@ -55,7 +59,7 @@ public class SheetService {
 		objectlist.add(list);
 		ValueRange body = new ValueRange().setValues(objectlist);
 		try {
-			AppendValuesResponse writeResult = sheet.spreadsheets().values().append(SheetId, range, body)
+			sheet.spreadsheets().values().append(SheetId, range, body)
 					.setValueInputOption("Raw").execute();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,6 +88,19 @@ public class SheetService {
 		}
 		return null;
 	}
+	
+	public List<String> getLocation(String sheetId) throws IOException {
+		sheetId="1Np5h34vhqj4W2UithqIbNucnJ97url9IcUwyx2OmG50";
+		List<List<Object>> list = readValues(sheetId);
+		List<String> locationList=new ArrayList<String>();
+		if(list!=null&&list.size()!=0) {
+			for(List<Object> value:list) {
+				String location =(String) value.get(1);
+				locationList.add(location);
+			}
+		}
+		return locationList;
+	}
 
 	// update by properties
 	public String listUpdate(String sheetId, TraineeDTO dto) throws IOException {
@@ -98,10 +115,10 @@ public class SheetService {
 				updateList.add(dto.getEmail());
 				updateList.add(dto.getContactNumber());
 				updateList.add(dto.getAddress());
-				List<List<Object>> lists = new ArrayList();
+				List<List<Object>> lists = new ArrayList<List<Object>>();
 				lists.add(updateList);
 				ValueRange body = new ValueRange().setValues(lists);
-				UpdateValuesResponse updateResponse = sheet.spreadsheets().values().update(sheetId, updateRange, body)
+				sheet.spreadsheets().values().update(sheetId, updateRange, body)
 						.setValueInputOption("Raw").execute();
 				return "update Successfully done";
 			}
@@ -192,7 +209,7 @@ public class SheetService {
 						List<List<Object>> updateList = new ArrayList<>();
 						updateList.add(objlist);
 						ValueRange body = new ValueRange().setValues(updateList);
-						UpdateValuesResponse updateResponse = sheet.spreadsheets().values()
+						sheet.spreadsheets().values()
 								.update(sheetId, updateRange, body).setValueInputOption("Raw").execute();
 					} else {
 						return "Account Already disabled";
@@ -224,6 +241,7 @@ public class SheetService {
 		return activeStudent;
 	}
 
+	
 	private void getDTO(List<Object> list, TraineeDTO dto) {
 		dto.setStudentName((String) list.get(0));
 		dto.setEmail((String) list.get(1));
@@ -235,5 +253,17 @@ public class SheetService {
 		ValueRange result = sheet.spreadsheets().values().get(sheetId, range).execute();
 		List<List<Object>> valueList = result.getValues();
 		return valueList;
+	}
+	public boolean sendMail(String email, String subject, String body) {
+		//SimpleMailMessage message = new SimpleMailMessage();
+		SimpleMailMessage helper=new SimpleMailMessage();
+		helper.setFrom("vinodamallappa@outlook.com");
+		helper.setReplyTo("vinodamallappa@outlook.com");
+		helper.setTo(email);
+		helper.setSubject(subject);
+		helper.setText(body);
+		System.out.println(helper);
+		mailSender.send(helper);
+		return true;
 	}
 }
