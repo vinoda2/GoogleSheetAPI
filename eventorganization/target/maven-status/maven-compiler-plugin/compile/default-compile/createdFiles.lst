@@ -1,0 +1,3 @@
+com\xworkz\event\configuration\Event.class
+com\xworkz\event\controller\AjaxController.class
+com\xworkz\event\configuration\EventInit.class
