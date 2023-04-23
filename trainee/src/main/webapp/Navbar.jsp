@@ -12,7 +12,7 @@
 			class="nav-link active" aria-current="page" href="index.jsp">Home</a>
 		</li>
 		
-		<li class="nav-item"><a class="nav-link" href="Register.jsp">Register
+		<li class="nav-item"><a class="nav-link" href="index.jsp">Register
 				Here</a></li>
 		<li class="nav-item"><a class="nav-link" href="Login.jsp">Login</a>
 		</li>

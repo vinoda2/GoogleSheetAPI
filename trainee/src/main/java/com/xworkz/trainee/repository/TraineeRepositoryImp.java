@@ -1,5 +1,6 @@
 package com.xworkz.trainee.repository;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,6 @@ public class TraineeRepositoryImp implements TraineeRepository {
 
 	public TraineeRepositoryImp() {
 		log.info("TraineeRepositoryImp running");
-
 	}
 
 	@Override
@@ -80,30 +80,58 @@ public class TraineeRepositoryImp implements TraineeRepository {
 
 	public TraineeEntity findName(String userName) {
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
-		TraineeEntity entity;
+		TraineeEntity entity = null;
+//		log.info("this is findBy name running:"+entity);
+		log.info("passing from service:" + userName);
 		try {
-			Query query = manager.createNamedQuery("userName");
-			query.setParameter("userBy",userName);
-			entity=(TraineeEntity) query.getSingleResult();
-		}finally {
+			Query query = manager.createNamedQuery("byUserName");
+			query.setParameter("userBy", userName);
+			entity =(TraineeEntity) query.getSingleResult();
+			log.info("this is findName method result:"+entity);
+			return entity;
+		} finally {
 			manager.close();
 		}
-		return entity;
 	}
+
 	@Override
-	public boolean loginCount(String traineeName,int count) {
+	public boolean loginCount(String traineeName, int count) {
 		EntityManager manager = this.entityManagerFactory.createEntityManager();
 		try {
-			EntityTransaction entityTransaction=manager.getTransaction();
+			EntityTransaction entityTransaction = manager.getTransaction();
 			entityTransaction.begin();
-			Query  query= manager.createNamedQuery("loginCount");
+			Query query = manager.createNamedQuery("loginNumber");
 			query.setParameter("user", traineeName);
-			query.setParameter("count",count);
+			query.setParameter("number", count);
 			query.executeUpdate();
 			entityTransaction.commit();
 			return true;
+		} finally {
+			manager.close();
+		}
+	}
+	
+	public TraineeEntity reSetPassword(String email) {
+		EntityManager manager = this.entityManagerFactory.createEntityManager();
+		try {
+			Query query=manager.createNamedQuery("emailId");
+			query.setParameter("mails",email);
+			TraineeEntity entity=(TraineeEntity) query.getSingleResult();
+			return entity;
 		}finally {
 			manager.close();
 		}
+	}
+
+	@Override
+	public boolean updatePassword(String userName, String password, Boolean resetPassword, LocalTime passwordTime) {
+		
+		return false;
+	}
+
+	@Override
+	public boolean update(TraineeEntity entity) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

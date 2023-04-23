@@ -1,5 +1,7 @@
 package com.xworkz.trainee.dto;
 
+import java.time.LocalTime;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -23,11 +25,11 @@ import lombok.ToString;
 @Getter
 @Setter
 public class TraineeDTO {
-	
+
 	@NotBlank
 	@NotEmpty
 	@NotNull
-	@Size(min=3,max=20)
+	@Size(min = 3, max = 20)
 	private String traineeName;
 	@NotBlank
 	@NotEmpty
@@ -37,13 +39,15 @@ public class TraineeDTO {
 	@NotBlank
 	@NotEmpty
 	@NotNull
-	@Size(min=8,max=8)
+	@Size(min = 8, max = 8)
 	private String password;
 	@NotBlank
 	@NotEmpty
 	@NotNull
-	@Size(min=8,max=8)
+	@Size(min = 8, max = 8)
 	private String confirmPassword;
 	private int loginCount;
-	
+	private Boolean resetPassword;
+	private LocalTime passwordTime;
+	private String profileName;
 }

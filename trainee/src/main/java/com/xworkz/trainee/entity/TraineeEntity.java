@@ -1,5 +1,7 @@
 package com.xworkz.trainee.entity;
 
+import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +23,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-@Table(name="traineedetails")
+@Table(name="trainee")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,9 +31,9 @@ import lombok.ToString;
 @NamedQuery(name="findAll", query="select trainee from TraineeEntity trainee"),
 @NamedQuery(name = "byName",query = "select count(*) from  TraineeEntity tn where tn.traineeName=:userBy"),
 @NamedQuery(name = "ByEmail",query = "select count(*) from  TraineeEntity tn where tn.traineeEmail=:byEmail"),
-@NamedQuery(name = "email",query = "select tn from  TraineeEntity tn where tn.traineeEmail=:byemail"),
-@NamedQuery(name = "userName",query = "select tn from  TraineeEntity tn where tn.traineeName=:userBy"),
-@NamedQuery(name="loginCount",query="update tn set tn.logincount=:count where tn.traineeName=:user")
+@NamedQuery(name = "mails",query = "select tn from  TraineeEntity tn where tn.traineeEmail=:byemail"),
+@NamedQuery(name = "byUserName",query = "select tn from  TraineeEntity tn where tn.traineeName=:userBy"),
+@NamedQuery(name="loginNumber",query="update TraineeEntity tn set tn.loginCount=:number where tn.traineeName=:user")
 
 })
 public class TraineeEntity {
@@ -47,5 +49,10 @@ public class TraineeEntity {
 	private String password;
 	@Column(name="t_logincount")
 	private int loginCount;
+	@Column(name="t_resetpassword")
+	private Boolean resetPassword;
+	@Column(name="t_passwordTime")
+	private LocalTime passswordTime;
+	//private String profileName;
 	
 }

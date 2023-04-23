@@ -1,5 +1,6 @@
 package com.xworkz.trainee.repository;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,4 +25,11 @@ public interface TraineeRepository {
 		return null;
 	}
 	boolean loginCount(String userId, int count);
+	default TraineeEntity reSetPassword(String email) {
+		return null;
+	}
+	//boolean update(TraineeEntity TraineeEntity);
+	boolean updatePassword(String userName, String password, Boolean resetPassword, LocalTime passwordTime);
+
+	abstract boolean update(TraineeEntity entity);
 }

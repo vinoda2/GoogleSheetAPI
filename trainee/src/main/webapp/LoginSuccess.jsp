@@ -11,7 +11,7 @@
 <%@ include file="Navbar.jsp"%>
 	<%@include file="all_css.jsp"%>
 	 
-	<h2 align="center" style="color: green;">${dto.traineeName} Registration done successfully</h2>
+	<h2 align="center" style="color: green;">${dto.traineeName} Login done successfully</h2>
 	
 </body>
 </html>

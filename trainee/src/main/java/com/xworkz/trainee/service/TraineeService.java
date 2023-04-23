@@ -25,4 +25,11 @@ public interface TraineeService {
 	default TraineeDTO logIn(String traineeName,String password) {
 		return null;
 	}
+	default TraineeDTO reSetPassword(String email) {
+		return null;
+	}
+
+	default TraineeDTO updatePassword(String userId, String password, String confirmPassword) {
+		return null;
+	}
 }

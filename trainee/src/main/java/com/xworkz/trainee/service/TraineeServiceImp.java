@@ -1,5 +1,6 @@
 package com.xworkz.trainee.service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +26,6 @@ import org.springframework.stereotype.Service;
 import com.xworkz.trainee.dto.TraineeDTO;
 import com.xworkz.trainee.entity.TraineeEntity;
 import com.xworkz.trainee.repository.TraineeRepository;
-
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -59,18 +58,18 @@ public class TraineeServiceImp implements TraineeService {
 		if (nameCount == 0 && emailCount == 0) {
 			TraineeEntity entity = new TraineeEntity();
 			log.info(dto.getTraineeEmail());
-			boolean sent = this.sendMail(dto.getTraineeEmail());
+			//boolean sent = this.sendMail(dto.getTraineeEmail());
 			entity.setTraineeName(dto.getTraineeName());
 			entity.setTraineeEmail(dto.getTraineeEmail());
 			entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-			// entity.setPassword(dto.getPassword());
+			entity.setResetPassword(false);
+			entity.setPassswordTime(LocalTime.of(0, 0, 0));
 			boolean save = this.traineeRepository.onSave(entity);
-			log.info("password:", entity.getPassword());
-			log.info(" email:", save);
-
+			log.info("this is repsitory:"+entity);
+			//log.info("password:", entity.getPassword());
+			//log.info(" email:", save);
 		}
 		return Collections.emptySet();
-
 	}
 
 	@Override
@@ -100,6 +99,7 @@ public class TraineeServiceImp implements TraineeService {
 	// login
 	public TraineeDTO logIn(String traineeName, String password) {
 		// log.info("this is service");
+		log.info("passing from controller:"+traineeName+password);
 		TraineeEntity entity = this.traineeRepository.findName(traineeName);
 		TraineeDTO dto = new TraineeDTO();
 		BeanUtils.copyProperties(entity, dto);
@@ -108,13 +108,33 @@ public class TraineeServiceImp implements TraineeService {
 		}
 		if (dto.getTraineeName().equals(traineeName) && passwordEncoder.matches(password, entity.getPassword())) {
 			return dto;
-		} else {
+		}else {
 			this.traineeRepository.loginCount(traineeName, entity.getLoginCount() + 1);
 			return null;
 		}
 
 	}
 
+	public TraineeDTO reSetPassword(String email) {
+		String newPassword=null;
+		TraineeEntity entity=this.traineeRepository.reSetPassword(email);
+		if(entity!=null) {
+			entity.setPassword(passwordEncoder.encode(newPassword));
+			entity.setLoginCount(0);
+			entity.setResetPassword(true);
+			entity.setPassswordTime(LocalTime.now().plusSeconds(180));
+			//call update method
+			boolean update=this.traineeRepository.update(entity);
+			if(update) {
+				this.sendMail(entity.getTraineeEmail());
+			}
+			TraineeDTO dto=new TraineeDTO();
+			BeanUtils.copyProperties(entity, dto);
+			return dto;
+		}
+		return null;
+	}
+	
 	private Set<ConstraintViolation<TraineeDTO>> valid(TraineeDTO dto) {
 		ValidatorFactory valid = Validation.buildDefaultValidatorFactory();
 		Validator v = valid.getValidator();
@@ -146,17 +166,11 @@ public class TraineeServiceImp implements TraineeService {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject("Registration Confirmation  Mail");
 			message.setText("Thanks for registering");
-
-			// send the message
 			Transport.send(message);
-
 			System.out.println("message sent successfully...");
-
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
-
 }
