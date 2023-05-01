@@ -1,0 +1,90 @@
+2023-04-27 21:30:37,381 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Starting GooglesheetconnectionApplicationTests using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 15968 (started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 21:30:37,384 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 21:30:37,385 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 21:30:45,759 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 21:30:48,280 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Context refreshed
+2023-04-27 21:30:48,475 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Found 1 custom documentation plugin(s)
+2023-04-27 21:30:49,094 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [main] Scanning for api listing references
+2023-04-27 21:30:50,019 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Started GooglesheetconnectionApplicationTests in 14.094 seconds (JVM running for 17.791)
+2023-04-27 21:37:22,908 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Starting GooglesheetconnectionApplication using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 14296 (C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection\target\classes started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 21:37:22,913 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 21:37:22,915 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 21:37:29,387 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-04-27 21:37:29,429 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2023-04-27 21:37:29,430 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.73]
+2023-04-27 21:37:30,061 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2023-04-27 21:37:30,063 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 6922 ms
+2023-04-27 21:37:32,240 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 21:37:33,890 WARN org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2023-04-27 21:37:33,914 INFO org.apache.catalina.core.StandardService [main] Stopping service [Tomcat]
+2023-04-27 21:37:33,983 INFO org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener [main] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-04-27 21:37:34,200 ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [main] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2023-04-27 21:38:24,655 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Starting GooglesheetconnectionApplication using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 4248 (C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection\target\classes started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 21:38:24,662 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 21:38:24,663 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 21:38:30,433 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-04-27 21:38:30,466 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2023-04-27 21:38:30,467 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.73]
+2023-04-27 21:38:30,994 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2023-04-27 21:38:30,994 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 6081 ms
+2023-04-27 21:38:32,941 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 21:38:34,032 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-04-27 21:38:34,035 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Context refreshed
+2023-04-27 21:38:34,075 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Found 1 custom documentation plugin(s)
+2023-04-27 21:38:34,193 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [main] Scanning for api listing references
+2023-04-27 21:38:34,340 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-04-27 21:38:34,342 INFO org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-04-27 21:38:34,345 INFO org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 3 ms
+2023-04-27 21:38:34,817 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Started GooglesheetconnectionApplication in 11.57 seconds (JVM running for 13.152)
+2023-04-27 21:38:50,108 INFO com.xworkz.googlesheetconnection.service.SheetService [http-nio-8080-exec-4] account disabled
+2023-04-27 21:38:50,109 INFO com.xworkz.googlesheetconnection.service.SheetService [http-nio-8080-exec-4] account disabled
+2023-04-27 21:38:50,769 INFO com.xworkz.googlesheetconnection.service.SheetService [http-nio-8080-exec-6] account disabled
+2023-04-27 21:38:50,774 INFO com.xworkz.googlesheetconnection.service.SheetService [http-nio-8080-exec-6] account disabled
+2023-04-27 21:42:32,952 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Starting GooglesheetconnectionApplicationTests using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 10668 (started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 21:42:32,953 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 21:42:32,954 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 21:42:40,440 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 21:42:42,944 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Context refreshed
+2023-04-27 21:42:43,058 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Found 1 custom documentation plugin(s)
+2023-04-27 21:42:43,252 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [main] Scanning for api listing references
+2023-04-27 21:42:44,995 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Started GooglesheetconnectionApplicationTests in 13.848 seconds (JVM running for 17.27)
+2023-04-27 21:49:44,243 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Starting GooglesheetconnectionApplicationTests using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 5996 (started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 21:49:44,245 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 21:49:44,246 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 21:49:49,525 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 21:49:51,160 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Context refreshed
+2023-04-27 21:49:51,210 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Found 1 custom documentation plugin(s)
+2023-04-27 21:49:51,337 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [main] Scanning for api listing references
+2023-04-27 21:49:52,040 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplicationTests [main] Started GooglesheetconnectionApplicationTests in 8.816 seconds (JVM running for 11.578)
+2023-04-27 22:17:06,415 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Starting GooglesheetconnectionApplication using Java 1.8.0_351 on DESKTOP-FT7DFR5 with PID 15580 (C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection\target\classes started by Dell in C:\Users\Dell\Desktop\New folder\x-workz\googlesheetconnection)
+2023-04-27 22:17:06,421 DEBUG com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Running with Spring Boot v2.7.10, Spring v5.3.26
+2023-04-27 22:17:06,424 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-04-27 22:17:11,491 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-04-27 22:17:11,532 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2023-04-27 22:17:11,533 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.73]
+2023-04-27 22:17:12,122 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2023-04-27 22:17:12,123 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 5538 ms
+2023-04-27 22:17:14,358 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [main] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-04-27 22:17:15,234 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-04-27 22:17:15,237 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Context refreshed
+2023-04-27 22:17:15,355 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [main] Found 1 custom documentation plugin(s)
+2023-04-27 22:17:15,547 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [main] Scanning for api listing references
+2023-04-27 22:17:16,167 INFO com.xworkz.googlesheetconnection.GooglesheetconnectionApplication [main] Started GooglesheetconnectionApplication in 11.67 seconds (JVM running for 13.946)
+2023-04-27 22:17:30,239 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-04-27 22:17:30,245 INFO org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2023-04-27 22:17:30,248 INFO org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 2 ms

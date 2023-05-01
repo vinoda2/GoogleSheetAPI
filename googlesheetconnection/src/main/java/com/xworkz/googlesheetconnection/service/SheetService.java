@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.mortbay.log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -25,22 +24,25 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import com.xworkz.googlesheetconnection.dto.TraineeDTO;
 import com.xworkz.googlesheetconnection.util.GoogleSheetUtil;
 
+
 @Service
-@EnableCaching
 public class SheetService {
 	@Autowired
 	JavaMailSender mailSender;
+	
 	private static final String APPLICATION_NAME = "Google sheet new ";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
-	private static final String CREDENTIALS_FILE_PATH = "C:\\Users\\Dell\\Desktop\\New folder\\x-workz\\googlesheetconnection\\src\\main\\resources\\credentials.json";
+	//private static final String CREDENTIALS_FILE_PATH = "src/main/resources/credentials.json";
+//	private static final String CREDENTIALS_FILE_PATH = "classpath:credentials.json";
+//	File file = new ClassPathResource("classpath:credentials.json").getFile().getAbsolutePath();
 	private static Sheets sheet;
 	String range = "A2:E";
 	GoogleCredential credential;
 
 	// loading the connection
 	public SheetService() throws IOException, GeneralSecurityException {
-		credential = GoogleCredential.fromStream(new FileInputStream(CREDENTIALS_FILE_PATH)).createScoped(SCOPES);
+		credential = GoogleCredential.fromStream(new FileInputStream(new ClassPathResource("credentials.json").getFile().getAbsolutePath())).createScoped(SCOPES);
 		sheet = new Sheets.Builder(new NetHttpTransport(), JSON_FACTORY, credential)
 				.setApplicationName(APPLICATION_NAME).build();
 	}
@@ -49,8 +51,7 @@ public class SheetService {
 	public String writeData(String SheetId, TraineeDTO dto) {
 		List<List<Object>> objectlist = new ArrayList<>();
 		List<Object> list = new ArrayList<>();
-		//boolean sendMessage=this.sendMail(dto.getEmail(), "X-workz","Thanks for registering");
-		//System.out.println(sendMessage);
+		boolean sendMessage=this.sendMail(dto.getEmail(), "X-workz","Thanks for registering");
 		list.add(dto.getStudentName());
 		list.add(dto.getEmail());
 		list.add(dto.getContactNumber());
@@ -67,7 +68,7 @@ public class SheetService {
 		return "Data saved Successfully";
 
 	}
-	@Cacheable(value="traineeemail", key="email")
+//	@Cacheable(value="traineeemail", key="email")
 	// read single value from Google Sheet
 	public List<TraineeDTO> getValues(String sheetId) throws IOException {
 		List<List<Object>> list = readValues(sheetId);
@@ -83,9 +84,7 @@ public class SheetService {
 			}
 
 			return sdto;
-		} else {
-			System.out.println("Sheet is empty");
-		}
+		} 
 		return null;
 	}
 	
@@ -128,23 +127,23 @@ public class SheetService {
 	}
 
 	// find by Name return list<Object>
-	public List<TraineeDTO> findByName(String sheetId, String name) throws IOException {
+	public TraineeDTO findByName(String sheetId, String name) throws IOException {
 		List<List<Object>> valueList = readValues(sheetId);
-		List<TraineeDTO> nameList = new ArrayList<TraineeDTO>();
-
+		//TraineeDTO nameList = new TraineeDTO();
 		if (valueList != null && valueList.size() != 0) {
 			for (List<Object> list : valueList) {
-				if (list.get(0).equals(name)) {
+				String disableStatus = (String) list.get(4);
+				Boolean activeStatus = Boolean.valueOf(disableStatus);
+				if (list.get(0).equals(name)&&activeStatus.equals(false)) {
 					TraineeDTO dto = new TraineeDTO();
 					getDTO(list, dto);
-					nameList.add(dto);
-				} else {
-					System.out.println("Name not present");
+					return dto;
+	
 				}
 			}
 
 		}
-		return nameList;
+		return null;
 	}
 
 	// Find By Address return List<Object>
@@ -169,12 +168,15 @@ public class SheetService {
 		TraineeDTO dto = new TraineeDTO();
 		if (valueList != null && valueList.size() != 0) {
 			for (List<Object> list : valueList) {
-				if (list.get(1).equals(email)) {
+				String disableStatus = (String) list.get(4);
+				Boolean activeStatus = Boolean.valueOf(disableStatus);
+				if (list.get(1).equals(email)&&activeStatus.equals(false)) {
 					getDTO(list, dto);
+					return dto;
 				}
 			}
 		}
-		return dto;
+		return null;
 	}
 
 	// Find by Mobile number it return DTO matching with Mobile number
@@ -183,16 +185,35 @@ public class SheetService {
 		TraineeDTO dto = new TraineeDTO();
 		if (valueList != null && valueList.size() != 0) {
 			for (List<Object> list : valueList) {
-				if (list.get(2).equals(mobileNumber)) {
+				String disableStatus = (String) list.get(4);
+				Boolean activeStatus = Boolean.valueOf(disableStatus);
+				if (list.get(2).toString().equals(mobileNumber)&& activeStatus.equals(false)) {
 					getDTO(list, dto);
-				} else {
-					System.out.println("Mobile number Not found");
-				}
+				} 
 			}
 		}
 		return dto;
 	}
 
+	// Find by Mobile number it return DTO matching with Mobile number
+	public List<TraineeDTO> findByMobile(String sheetId, String searchText) throws IOException {
+		List<List<Object>> list = readValues(sheetId);
+		List<TraineeDTO> traineeList = new ArrayList<TraineeDTO>();	
+		if(list!=null && list.size()!=0) {
+			for(List<Object> value:list) {
+				String name=(String)value.get(0);
+				String email=(String)value.get(1);
+				String number=(String) value.get(2);
+				String address=(String)value.get(3);
+				if(number.contains(searchText)||name.contains(searchText)||email.contains(searchText)||address.contains(searchText)) {
+					TraineeDTO dto = new TraineeDTO();
+					getDTO(value, dto);
+					traineeList.add(dto);
+				}
+			}
+		}
+		return traineeList;
+	}
 	// updateDisableByEmail
 	public String updateDisableByEmail(String sheetId, String email) throws IOException {
 		List<List<Object>> valueList = readValues(sheetId);
@@ -234,8 +255,6 @@ public class SheetService {
 				TraineeDTO dto = new TraineeDTO();
 				getDTO(list, dto);
 				activeStudent.add(dto);
-			} else {
-				System.out.println("account disabled");
 			}
 		}
 		return activeStudent;

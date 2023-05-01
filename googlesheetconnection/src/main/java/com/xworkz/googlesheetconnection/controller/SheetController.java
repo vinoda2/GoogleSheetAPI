@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.mortbay.log.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.xworkz.googlesheetconnection.dto.TraineeDTO;
 import com.xworkz.googlesheetconnection.service.SheetService;
 
@@ -40,31 +39,30 @@ public class SheetController {
 
 	@PutMapping()
 	public String updateBydto(@RequestBody TraineeDTO dto, @RequestHeader String sheetId) throws IOException {
-		System.out.println("this is update method");
-		System.out.println("data:"+dto);
+		Log.info("data:"+dto);
 		return this.sheetService.listUpdate(sheetId, dto);
 	}
 
 	@GetMapping("/byname/{name}")
-	public List<TraineeDTO> findByName(@RequestHeader String sheetId, @PathVariable String name) throws IOException {
+	public TraineeDTO findByName(@RequestHeader String sheetId, @PathVariable String name) throws IOException {
 		return this.sheetService.findByName(sheetId, name);
 	}
 
 	@GetMapping("/byaddress/{address}")
-	public List<TraineeDTO> findByAddress(@RequestHeader String sheetId, @RequestParam String address)
+	public List<TraineeDTO> findByAddress(@RequestHeader String sheetId, @PathVariable String address)
 			throws IOException {
 		return this.sheetService.findByAddress(sheetId, address);
 	}
 
-	@GetMapping("/{email}")
+	@GetMapping("/email/{email}")
 	public TraineeDTO findByEmail(@RequestHeader String sheetId,@PathVariable String email) throws IOException {
 		return this.sheetService.findByEmail(sheetId, email);
 	}
 
-	@GetMapping("/mobile/{mobileNumber}")
-	public TraineeDTO findByMobileNumber(@RequestHeader String sheetId, @PathVariable String mobileNumber)
+	@GetMapping("/contact/{mobileNumber}")
+	public List<TraineeDTO> findByMobileNumber(@RequestHeader String sheetId, @PathVariable String mobileNumber)
 			throws IOException {
-		return this.sheetService.findByMobileNumber(sheetId, mobileNumber);
+		return this.sheetService.findByMobile(sheetId, mobileNumber);
 	}
 
 	@GetMapping()
@@ -78,8 +76,6 @@ public class SheetController {
 	}
 	@GetMapping("/location")
 	public List<String> getAddress(@RequestHeader String sheetId) throws IOException{
-		System.out.println("this is get Address method");
 		return this.sheetService.getLocation(sheetId);
 	}
-
 }
